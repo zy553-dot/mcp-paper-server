@@ -34,7 +34,10 @@ def build_entry() -> dict:
     """
     python_path = PROJECT_ROOT / ".venv" / "bin" / "python"
     if not python_path.exists():
-        sys.exit(f"找不到虚拟环境: {python_path}\n先运行 uv venv 并安装依赖。")
+        sys.exit(
+            f"Virtual environment not found at {python_path}\n"
+            "Run 'uv venv' and install requirements.txt first."
+        )
 
     return {
         "command": str(python_path),
@@ -48,7 +51,10 @@ def build_entry() -> dict:
 
 def main() -> None:
     if not CONFIG_PATH.exists():
-        sys.exit(f"找不到 Claude Desktop 配置文件:\n{CONFIG_PATH}\n请先至少启动一次 Claude Desktop。")
+        sys.exit(
+            f"Claude Desktop config not found at:\n{CONFIG_PATH}\n"
+            "Launch Claude Desktop at least once, then run this again."
+        )
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
 
@@ -56,21 +62,21 @@ def main() -> None:
         f".backup-{datetime.now():%Y%m%d-%H%M%S}.json"
     )
     shutil.copy2(CONFIG_PATH, backup)
-    print(f"已备份原配置到:\n  {backup}\n")
+    print(f"Backed up the existing config to:\n  {backup}\n")
 
     servers = config.setdefault("mcpServers", {})
     entry = build_entry()
-    action = "更新" if SERVER_NAME in servers else "新增"
+    action = "Updated" if SERVER_NAME in servers else "Added"
     servers[SERVER_NAME] = entry
 
     CONFIG_PATH.write_text(
         json.dumps(config, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
-    print(f"已{action} MCP 服务器 '{SERVER_NAME}':")
+    print(f"{action} MCP server '{SERVER_NAME}':")
     print(json.dumps(entry, indent=2, ensure_ascii=False))
-    print(f"\n配置文件里现有的服务器: {', '.join(servers) or '(无)'}")
-    print("\n下一步: 完全退出 Claude Desktop（Command+Q，不是关窗口）再重新打开。")
+    print(f"\nServers now configured: {', '.join(servers) or '(none)'}")
+    print("\nNext: quit Claude Desktop completely (Cmd+Q, not just the window), then reopen it.")
 
 
 if __name__ == "__main__":

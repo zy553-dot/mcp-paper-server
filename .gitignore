@@ -1,13 +1,17 @@
-# 虚拟环境
+# Virtual environment
 .venv/
-# Python 缓存
+
+# Python caches
 __pycache__/
 *.pyc
-# 密钥文件 —— 绝对不能提交
+
+# Secrets - never commit
 .env
-# 本地数据库
+
+# Local database and logs
 data/*.db
-# macOS
-.DS_Store
 data/*.db-journal
 data/*.log
+
+# macOS
+.DS_Store
