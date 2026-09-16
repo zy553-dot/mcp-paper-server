@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "paper-server": {
+      "command": "/Users/zilingyan/Documents/mcp-paper-server/.venv/bin/python",
+      "args": ["-m", "paper_server.server"],
+      "cwd": "/Users/zilingyan/Documents/mcp-paper-server",
+      "env": {
+        "PYTHONPATH": "/Users/zilingyan/Documents/mcp-paper-server"
+      }
+    }
+  }
+}

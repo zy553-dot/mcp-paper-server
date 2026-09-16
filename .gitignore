@@ -1,0 +1,13 @@
+# 虚拟环境
+.venv/
+# Python 缓存
+__pycache__/
+*.pyc
+# 密钥文件 —— 绝对不能提交
+.env
+# 本地数据库
+data/*.db
+# macOS
+.DS_Store
+data/*.db-journal
+data/*.log
